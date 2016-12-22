@@ -1,0 +1,113 @@
+ACTOR
+CREATE TABLE actor (id_actor INT(5) NOT NULL AUTO_INCREMENT, nombre VARCHAR(30) NOT NULL, 
+direccion VARCHAR(20) NOT NULL, telefono VARCHAR(15) NOT NULL, PRIMARY KEY(id_actor))
+type=INNODB;
+
+EMPRESA
+CREATE TABLE empresa (id_empresa INT(5) NOT NULL AUTO_INCREMENT,nombre VARCHAR(30) NOT NULL,
+direccion VARCHAR(20) NOT NULL, telefono VARCHAR(15) NOT NULL,PRIMARY KEY(id_empresa)) type=INNODB;
+
+ABOGADO
+CREATE TABLE abogado (id_abogado INT(5) NOT NULL AUTO_INCREMENT, nombre VARCHAR(30)
+NOT NULL, direccion VARCHAR(20) NOT NULL, telefono VARCHAR(15) NOT NULL,
+user VARCHAR(16) NOT NULL, password VARCHAR(16),PRIMARY KEY(id_abogado)) type=INNODB;
+
+ABOGADO_E
+CREATE TABLE abogado_e (id_abogado_e INT(5) NOT NULL AUTO_INCREMENT, nombre VARCHAR(30)
+NOT NULL, direccion VARCHAR(20), telefono VARCHAR(15), 
+PRIMARY KEY(id_abogado_e)) type=INNODB;
+
+FISCALIA
+CREATE TABLE fiscalia (id_fiscalia INT(5) NOT NULL AUTO_INCREMENT, direccion VARCHAR(20) NOT NULL, 
+telefono VARCHAR(15) NOT NULL, PRIMARY KEY(id_fiscalia)) type=INNODB;
+
+DEMANDA
+CREATE TABLE demanda(id_demanda int(5) NOT NULL auto_increment,asunto VARCHAR(100) NOT NULL,
+fecha_inicio DATE NOT NULL,fecha_fin DATE NOT NULL, id_actor INT(5) NOT NULL,
+id_fiscalia INT(5) NOT NULL, id_empresa INT(5) NOT NULL, PRIMARY KEY(id_demanda),
+INDEX id_act(id_actor),INDEX id_fisc(id_fiscalia),INDEX id_emp(id_empresa), 
+FOREIGN KEY(id_actor) REFERENCES actor(id_actor) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY(id_fiscalia) REFERENCES
+fiscalia(id_fiscalia) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_empresa) REFERENCES empresa(id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE) type=INNODB;
+
+PRUEBA EMPRESA
+CREATE TABLE prueba_empresa(id_demanda INT(5) NOT NULL, id_prueba_e INT(5) NOT NULL,
+id_empresa INT(5) NOT NULL,
+descripcion VARCHAR(100) NOT NULL, PRIMARY KEY(id_demanda,id_empresa.id_prueba_e),
+INDEX id_dem(id_demanda),INDEX id_emp(id_empresa),
+FOREIGN KEY(id_demanda) REFERENCES
+demanda (id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE, FOREIGN KEY(id_empresa)
+REFERENCES empresa(id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE) type=INNODB;
+
+PRUEBA ACTOR
+CREATE TABLE prueba_actor(id_demanda INT(5) NOT NULL, id_prueba_a INT(5) NOT NULL,
+id_actor INT(5) NOT NULL,
+descripcion VARCHAR(100) NOT NULL, PRIMARY KEY(id_demanda,id_actor,id_prueba_a),
+INDEX id_dem(id_demanda),INDEX id_act(id_actor),
+FOREIGN KEY(id_demanda) REFERENCES
+demanda (id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE, FOREIGN KEY(id_actor)
+REFERENCES actor(id_actor) ON DELETE RESTRICT ON UPDATE CASCADE) type=INNODB;
+
+JUNTA
+CREATE TABLE junta(id_junta INT(5) NOT NULL, id_fiscalia INT(5) NOT NULL,
+id_demanda INT(5) NOT NULL, direccion VARCHAR(20) NOT NULL, telefono VARCHAR(15)
+NOT NULL, PRIMARY KEY(id_junta,id_fiscalia,id_demanda),
+FOREIGN KEY(id_fiscalia) REFERENCES fiscalia(id_fiscalia) ON DELETE RESTRICT ON UPDATE CASCADE
+FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE) TYPE=INNODB;
+
+
+MIEMBRO
+CREATE TABLE miemrbo(id_junta int(5) not null, id_miembro int(5) not null,
+id_fiscalia int(5) not null, id_demanda int(5) not null,
+nombre varchar(30) not null, direccion varchar(20) not null, telefono 
+varchar(15) not null, PRIMARY KEY(id_junta,id_miembro,id_fiscalia,id_demanda),
+INDEX id_ju(id_junta), INDEX id_fisc(id_fiscalia), INDEX id_dem(id_demanda),
+FOREIGN KEY(id_junta) REFERENCES junta(id_junta) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_fiscalia) REFERENCES fiscalia(id_fiscalia) ON DELETE RESTRICT ON
+UPDATE CASCADE, FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) 
+ON DELETE RESTRICT ON UPDATE CASCADE) TYPE=INNODB;
+
+SUCESO
+CREATE TABLE suceso(id_suceso INT(5) NOT NULL, id_demanda INT(5) NOT NULL,
+id_abogado INT(5) NOT NULL, etapa VARCHAR(20) NOT NULL, descripcion VARCHAR(100) NOT NULL, PRIMARY KEY(id_suceso,
+id_demanda), INDEX id_dem(id_demanda), FOREIGN KEY(id_demanda) REFERENCES demanda(
+id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY(id_abogado) REFERENCES abogado(id_abogado)ON DELETE RESTRICT ON UPDATE CASCADE) TYPE= INNODB;
+
+PRESENTACION
+CREATE TABLE presentacion(id_suceso INT(5) NOT NULL, id_demanda INT(5) NOT NULL, 
+id_presentacion INT(5) NOT NULL, fecha DATE NOT NULL, hora TIME NOT NULL, direccion
+VARCHAR(20) NOT NULL, PRIMARY KEY(id_suceso,id_demanda,id_presentacion),
+INDEX id_suc(id_suceso),INDEX id_dem(id_demanda),
+FOREIGN KEY(id_suceso) REFERENCES suceso (id_suceso) ON DELETE RESTRICT ON UPDATE 
+CASCADE, FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) ON DELETE 
+RESTRICT ON UPDATE CASCADE) TYPE=INNODB;
+
+DEMANDA_ABOGADO
+CREATE TABLE demanda_abogado(id_abogado INT(5) NOT NULL, id_demanda INT(5) NOT NULL,
+PRIMARY KEY(id_abogado,id_demanda), INDEX id_dem(id_demanda), INDEX id_abo(id_abogado),
+FOREIGN KEY(id_abogado) REFERENCES abogado(id_abogado) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE) TYPE=INNODB;
+
+EMPRESA_ABOGADO
+CREATE TABLE empresa_abogado(id_abogado INT(5) NOT NULL, id_empresa INT(5) NOT NULL,
+PRIMARY KEY(id_abogado,id_empresa), INDEX id_emp(id_empresa), INDEX id_abo(id_abogado),
+FOREIGN KEY(id_abogado) REFERENCES abogado(id_abogado) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_empresa) REFERENCES empresa(id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE) TYPE=INNODB;
+
+TESTIGO_PRUEBA_ACTOR
+CREATE TABLE testigo_prueba_actor(id_actor int(5) NOT NULL, id_prueba_a INT(5) NOT NULL, id_demanda INT(5) NOT NULL, 
+id_testigo_a INT(5) NOT NULL, telefono VARCHAR(15) NOT NULL, direccion VARCHAR(20) NOT NULL, nombre VARCHAR(20) NOT NULL,
+PRIMARY KEY(id_actor,id_prueba_a,id_demanda,id_testigo_a), INDEX id_ac(id_actor), INDEX id_pru(id_prueba_a), 
+INDEX id_dem(id_demanda), FOREIGN KEY(id_actor) references actor(id_actor) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_prueba_a) REFERENCES prueba_actor(id_prueba_a) ON DELETE RESTRICT ON UPDATE CASCADE) type=INNODB;
+
+TESTIGO_PRUEBA_EMPRESA
+CREATE TABLE testigo_prueba_empresa(id_empresa int(5) NOT NULL, id_prueba_e INT(5) NOT NULL, id_demanda INT(5) NOT NULL, 
+id_testigo_e INT(5) NOT NULL, telefono VARCHAR(15) NOT NULL, direccion VARCHAR(20) NOT NULL, nombre VARCHAR(20) NOT NULL,
+PRIMARY KEY(id_empresa,id_prueba_e,id_demanda,id_testigo_e), INDEX id_em(id_empresa), INDEX id_pru(id_prueba_e), 
+INDEX id_dem(id_demanda), FOREIGN KEY(id_empresa) references actor(id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_demanda) REFERENCES demanda(id_demanda) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(id_prueba_e) REFERENCES prueba_empresa(id_prueba_e) ON DELETE RESTRICT ON UPDATE CASCADE) type=INNODB;
+
+

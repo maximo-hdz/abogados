@@ -1,0 +1,119 @@
+body {
+ font-family:  Lucida Bright, Arial;
+ background-color: lightyellow;
+ color:    brown;
+ margin:   30px;
+}
+
+h1 {
+ font-family:  Book Antiqua, Arial;
+ font-size:   30px;
+ color:    saddlebrown;
+ line-height:  50%;
+}
+
+h2 {
+ font-family:  Book Antiqua, Arial;
+ font-size:   22px;
+ color:    sandybrown;
+ line-height:  50%;
+}
+
+h3 {
+ font-family:  Book Antiqua, Arial;
+ color:    darktan;
+}
+
+h4 {
+ font-family:  Book Antiqua, Arial;
+ color:    saddlebrown;
+}
+
+h5 {
+ font-family:  Book Antiqua, Arial;
+ color:    saddlebrown;
+}
+
+h6 {
+ font-family:  Book Antiqua, Arial;
+ color:    saddlebrown;
+}
+
+a {
+ color:    steelblue;
+ text-decoration: none;
+}
+
+a:hover {
+ color:    maroon;
+ text-decoration: none;
+}
+
+form {
+ font-family:  Arial;
+ color:    black;
+ border-width:  medium;
+ border-style:  inset;
+ border-color:  brown;
+ padding:   20px;
+ width:	640px;
+}
+
+table {
+ border-width:  thin;
+ color:    black;
+}
+
+hr {
+ color:    sandybrown;
+ width:    500px;
+}
+
+div {
+ color:    saddlebrown;
+ border-width:  thin;
+ border-style:  outset;
+ border-color:  yellow;
+ font-size:   12;
+ padding:   3px;
+ margin:   5px;
+ width:    640px;
+}
+
+.default {
+ background-color: wheat;
+}
+
+.lista {
+ background-color: tan;
+}
+
+.note {
+ font-size:   10;
+ color:    red;
+}
+
+.reporte {
+ background-color: wheat;
+ color:    maroon;
+ text-align: center;
+}
+
+.note {
+ font-size:		10;
+ text-align:	right;
+ padding:		0;
+ margin:		0;
+ border:		0;
+}
+
+.menu
+{
+	border-stlye: none;
+	border-width: 0px;
+	color: maroon;
+	padding: 0px;
+	margin=0px;
+	font-size: 10px;
+	text-align: center;
+}

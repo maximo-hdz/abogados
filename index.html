@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Sistema de Control de Juicios</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script Language="JavaScript">
+<!--
+function valida(){
+	if(document.forma.usuario.value.length==0)
+	{
+		alert("Nombre de usuario vacio");
+		return (false);
+	}
+	else
+	{
+		if(document.forma.pwd.value.length==0)
+		{
+			alert("Password vacio");
+			return (false);
+		}
+	}
+	return (true);
+}
+-->
+</script>
+<center>
+<h1>Sistema de control de Juicios</h1>
+<h3>Diaz-López, Gil-Hernández, Rodríguez Abogados</h3>
+</script>
+<h2> Para Ingresar es necesario tener un nombre de usuario y contraseña </h2>
+<form name="forma" onsubmit="return valida()" action="entrada.php?" method="post">
+<table>
+<tr>
+<td>Dame el nombre de usuario:</td>
+<td><input type=text name="usuario"><br></td>
+</tr>
+<tr>
+<td>Dame el password:</td>
+<td><input type="password" name="pwd"><br></td>
+</tr>
+</table>
+<input type="submit" name"envia" value="Envia">
+</form>
+</center>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
